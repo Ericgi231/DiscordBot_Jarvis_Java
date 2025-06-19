@@ -14,6 +14,7 @@ public class MessageListener extends ListenerAdapter {
     private static final String LOG_RESPONDING_TO_MESSAGE = "Responding to message {} by {} in {}";
     private static final String LOG_RESPONDED_TO_MESSAGE = "Responded to message {} by {} in {}";
 
+    private static final String EXCEPTION_MESSAGE = "Something went wrong :( ";
     private static final List<String> BOT_NAMES = List.of("jarvis", "edi", "jarv");
 
     @Override
@@ -32,8 +33,9 @@ public class MessageListener extends ListenerAdapter {
                     event.getChannel().getName());
             try {
                 new MessageHandler(message, content);
-            } catch (Exception ignored) {
-
+            } catch (Exception e) {
+                logger.error(e.toString());
+                message.reply(EXCEPTION_MESSAGE).queue();
             }
             logger.info(LOG_RESPONDED_TO_MESSAGE,
                     Arrays.toString(content),

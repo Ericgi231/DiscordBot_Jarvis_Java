@@ -44,7 +44,6 @@ public class MessageHandler {
 
     private void PostReply(MessageContent content) {
         var messageCreator = new MessageCreateBuilder();
-        var empty = new MessageCreateBuilder();
         if (content.hasText()) {
             assert content.text() != null;
             messageCreator.setContent(content.text());
@@ -59,7 +58,7 @@ public class MessageHandler {
         }
 
         if (messageCreator.isValid()) {
-            message.getChannel().sendMessage(empty.build()).setMessageReference(message).queue();
+            message.getChannel().sendMessage(messageCreator.build()).setMessageReference(message).queue();
         } else {
             logger.error(LOG_MESSAGE_CREATOR_INVALID);
             message.reply(MESSAGE_CREATE_BUILDER_INVALID_MESSAGE).queue();
