@@ -1,0 +1,1 @@
+java -jar jarvis-jar-with-dependencies.jar $JARVIS_TOKEN

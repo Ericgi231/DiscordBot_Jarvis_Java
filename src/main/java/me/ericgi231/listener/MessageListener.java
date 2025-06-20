@@ -11,19 +11,19 @@ import java.util.List;
 
 public class MessageListener extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(MessageListener.class);
-    private static final String LOG_RESPONDING_TO_MESSAGE = "Responding to message {} by {} in {}";
-    private static final String LOG_RESPONDED_TO_MESSAGE = "Responded to message {} by {} in {}";
+    private static final String LOG_RESPONDING_TO_MESSAGE = "Responding to message {} by [{}] in [{}]";
+    private static final String LOG_RESPONDED_TO_MESSAGE = "Responded to message {} by [{}] in [{}]";
 
     private static final String EXCEPTION_MESSAGE = "Something went wrong :( ";
-    private static final List<String> BOT_NAMES = List.of("jarvis", "edi", "jarv");
+    private static final List<String> BOT_NAMES = List.of("jarvis", "edi", "jarv", "javis");
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event)
     {
         if (event.getAuthor().isBot()) return;
 
-        var message = event.getMessage();
-        var content = message.getContentRaw().toLowerCase().split(" ");
+        final var message = event.getMessage();
+        final var content = message.getContentRaw().toLowerCase().split(" ");
 
         if (BOT_NAMES.contains(content[0]))
         {

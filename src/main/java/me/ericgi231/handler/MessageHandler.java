@@ -1,10 +1,12 @@
 package me.ericgi231.handler;
 
+import me.ericgi231.action.RandomWordsAction;
 import me.ericgi231.dataType.MessageContent;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -14,6 +16,7 @@ public class MessageHandler {
     private static final Logger logger = LoggerFactory.getLogger(MessageHandler.class);
     private static final String LOG_KEYWORD_HIT = "Hit keyword [{}], remaining words {}";
     private static final String LOG_MESSAGE_CREATOR_INVALID = "Unable to create message";
+    private static final String MESSAGE_SENT_MESSAGE = "Sent message [{}]";
 
     private static final String MESSAGE_CREATE_BUILDER_INVALID_MESSAGE = "Something went very wrong, I don't feel so good :(";
 
@@ -26,8 +29,10 @@ public class MessageHandler {
         DetermineAction();
     }
 
+    //TODO Handle the word "what" better
     private void DetermineAction() {
         if (words.isEmpty()) {
+            PostReply(RandomWordsAction.Action(words));
             return;
         }
 
@@ -58,10 +63,12 @@ public class MessageHandler {
         }
 
         if (messageCreator.isValid()) {
-            message.getChannel().sendMessage(messageCreator.build()).setMessageReference(message).queue();
+            var responseCreateData = messageCreator.build();
+            message.getChannel().sendMessage(responseCreateData).setMessageReference(message).queue();
+            logger.info(MESSAGE_SENT_MESSAGE, responseCreateData.getContent());
         } else {
-            logger.error(LOG_MESSAGE_CREATOR_INVALID);
             message.reply(MESSAGE_CREATE_BUILDER_INVALID_MESSAGE).queue();
+            logger.error(LOG_MESSAGE_CREATOR_INVALID);
         }
     }
 }

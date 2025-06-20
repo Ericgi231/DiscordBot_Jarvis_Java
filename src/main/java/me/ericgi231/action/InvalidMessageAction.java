@@ -5,11 +5,11 @@ import me.ericgi231.dataType.MessageContentBuilder;
 import me.ericgi231.helper.ActionHelper;
 import java.util.ArrayList;
 
-public class InvalidAction {
+public class InvalidMessageAction {
     private static final String MESSAGE = "Feature currently unimplemented, also you're gay :)";
     private static final String FILE_NAME = "207.png";
 
-    public static MessageContent Action(ArrayList<String> ignoredWords) {
+    public static MessageContent Action(final ArrayList<String> ignoredWords) {
         return new MessageContentBuilder().setText(MESSAGE).setFiles(ActionHelper.GetLocalFile(FILE_NAME)).build();
     }
 }
