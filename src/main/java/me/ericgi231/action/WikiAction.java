@@ -14,7 +14,7 @@ public class WikiAction {
     private static final String PRE_REQUEST_URI = "https://en.wikipedia.org/api/rest_v1/page/summary/";
     private static final String HTTP_FAILED_MESSAGE = "That does not exist.";
 
-    public static MessageContent Action(final ArrayList<String> words) {
+    public static MessageContent action(final ArrayList<String> words) {
         String request_uri;
         if (!words.isEmpty()) {
             request_uri = PRE_REQUEST_URI + String.join("_", words);

@@ -50,15 +50,13 @@ public class MessageHandler {
     private void PostReply(MessageContent content) {
         var messageCreator = new MessageCreateBuilder();
         if (content.hasText()) {
-            assert content.text() != null;
             messageCreator.setContent(content.text());
         }
         if (content.hasEmbeds()) {
-            assert content.embeds() != null;
+            //TODO solve why this is expecting an assertion, and cleanup assertions across codebase
             messageCreator.setEmbeds(content.embeds());
         }
         if (content.hasFiles()) {
-            assert content.files() != null;
             messageCreator.setFiles(content.files());
         }
 

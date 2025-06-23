@@ -14,7 +14,8 @@ import static me.ericgi231.constant.ActionConstant.*;
 public class ImagesAction {
     private static final Logger logger = LoggerFactory.getLogger(ImagesAction.class);
 
-    private static final String ERROR_MESSAGE = "No valid images found.";
+    private static final String NO_FILES_ERROR_MESSAGE = "No valid images found.";
+    private static final String INVALID_QUANTITY_ERROR_MESSAGE = "I can only post up to 10 images.";
     //TODO implement numeric words
     private static final HashMap<String, Integer> WORD_NUMBERS = new HashMap<>() {
         {
@@ -31,33 +32,36 @@ public class ImagesAction {
         }
     };
 
-    public static MessageContent Action(final ArrayList<String> words) {
-        var builder = new ImageQueryDataBuilder();
+    public static MessageContent action(final ArrayList<String> words) {
+        var queryBuilder = new ImageQueryDataBuilder();
+        var messageBuilder = new MessageContentBuilder();
 
-        if (words.getFirst().matches("\\d+")) {
-            builder.setQuantity(Integer.parseInt(words.removeFirst()));
+        //TODO clean up this special case
+        if (!words.isEmpty() && words.getFirst().matches("me")) {
+            words.removeFirst();
         }
 
-        if (STRING_IMAGE_TYPE_MAP.containsKey(words.getLast())) {
-            builder.setImageType(STRING_IMAGE_TYPE_MAP.get(words.removeLast()));
-        } else {
-            builder.setImageType(DEFAULT_IMAGE_TYPE);
+        if (!words.isEmpty() && words.getFirst().matches("\\d+")) {
+            var num = Integer.parseInt(words.removeFirst());
+            if (num <= 0 || num > 10) {
+                return messageBuilder.setText(INVALID_QUANTITY_ERROR_MESSAGE).build();
+            }
+            queryBuilder.setQuantity(num);
+        }
+
+        if (!words.isEmpty() && STRING_IMAGE_TYPE_MAP.containsKey(words.getLast())) {
+            queryBuilder.setImageType(STRING_IMAGE_TYPE_MAP.get(words.removeLast()));
         }
 
         for (String word : words) {
-            builder.addTerm(word);
+            queryBuilder.addTerm(word);
         }
 
-        var data = builder.build();
-
+        var data = queryBuilder.build();
         var files = IMAGE_TYPE_FUNCTION_MAP.get(data.imageType()).apply(data);
-        var error = "";
         if (files == null || files.isEmpty()) {
-            error = ERROR_MESSAGE;
+            return messageBuilder.setText(NO_FILES_ERROR_MESSAGE).build();
         }
-
-        //TODO rework code to remove assertions across app
-        assert files != null;
-        return new MessageContentBuilder().setFiles(files).setText(error).build();
+        return messageBuilder.setFiles(files).build();
     }
 }

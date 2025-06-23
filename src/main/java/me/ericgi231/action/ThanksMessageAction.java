@@ -11,7 +11,7 @@ import static me.ericgi231.helper.ActionHelper.GetRandomWordsFromResourceFile;
 public class ThanksMessageAction {
     private final static String PRE_MESSAGE = "You're welcome, ";
 
-    public static MessageContent Action(final ArrayList<String> ignoredWords) throws RuntimeException {
+    public static MessageContent action(final ArrayList<String> ignoredWords) throws RuntimeException {
         return new MessageContentBuilder().setText(PRE_MESSAGE + GetRandomWordsFromResourceFile(PATH_TO_CURSES)).build();
     }
 }

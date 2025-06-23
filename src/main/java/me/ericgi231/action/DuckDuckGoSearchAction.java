@@ -17,7 +17,7 @@ public class DuckDuckGoSearchAction {
     private static final String RESULT_NO_INSTANT_ANSWER = "No instant answer available.";
 
     //TODO This kinda sucks, duckduck go api rarely returns instant abstract text, need to find a better api for searches
-    public static MessageContent Action(ArrayList<String> words) {
+    public static MessageContent action(final ArrayList<String> words) {
         String request_uri;
         if (!words.isEmpty()) {
             request_uri = PRE_REQUEST_URI + String.join("%20", words);

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomNumberAction {
-    public static MessageContent Action(final ArrayList<String> ignoredWords) {
+    public static MessageContent action(final ArrayList<String> ignoredWords) {
         return new MessageContentBuilder().setText(String.valueOf(ThreadLocalRandom.current().nextInt())).build();
     }
 }

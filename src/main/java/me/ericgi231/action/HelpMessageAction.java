@@ -10,7 +10,7 @@ import static me.ericgi231.constant.ActionConstant.STRING_ACTION_FUNCTION_MAP;
 public class HelpMessageAction {
     private static final String PRE_MESSAGE = "Valid keywords: ";
 
-    public static MessageContent Action(final ArrayList<String> ignoredWords) {
+    public static MessageContent action(final ArrayList<String> ignoredWords) {
         StringBuilder stringBuilder = new StringBuilder().append(PRE_MESSAGE);
         STRING_ACTION_FUNCTION_MAP.forEach((s, action) -> stringBuilder.append(s).append(", "));
         stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());

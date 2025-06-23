@@ -27,7 +27,7 @@ public class RandomEightBallAction {
             "Very doubtful",
             "Better not tell you now");
 
-    public static MessageContent Action(final ArrayList<String> ignoredWords) {
+    public static MessageContent action(final ArrayList<String> ignoredWords) {
         var rand = ThreadLocalRandom.current();
         return new MessageContentBuilder().setText(outcomes.get(rand.nextInt(outcomes.size()))).build();
     }

@@ -26,14 +26,14 @@ public record MessageContent(List<MessageEmbed> embeds, List<FileUpload> files, 
     }
 
     public boolean hasEmbeds() {
-        return embeds != null;
+        return embeds != null && !embeds.isEmpty();
     }
 
     public boolean hasFiles() {
-        return files != null;
+        return files != null && !files.isEmpty();
     }
 
     public boolean hasText() {
-        return text != null;
+        return text != null && !text.isEmpty();
     }
 }

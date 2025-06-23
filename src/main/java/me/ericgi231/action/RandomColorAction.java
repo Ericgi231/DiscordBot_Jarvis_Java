@@ -7,7 +7,7 @@ import me.ericgi231.dataType.MessageContentBuilder;
 import java.util.ArrayList;
 
 public class RandomColorAction {
-    public static MessageContent Action(final ArrayList<String> ignoredWords) {
+    public static MessageContent action(final ArrayList<String> ignoredWords) {
         var color = new Faker().color();
         return new MessageContentBuilder().setText(color.name() + " " + color.hex()).build();
     }

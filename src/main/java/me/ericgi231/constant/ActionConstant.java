@@ -33,25 +33,26 @@ public final class ActionConstant {
 
     public static final HashMap<String, Function<ArrayList<String>, MessageContent>> STRING_ACTION_FUNCTION_MAP = new HashMap<>(){
         {
-            List.of("hello", "hi").forEach(s -> put(s, HelloMessageAction::Action));
-            List.of("help").forEach(s -> put(s, HelpMessageAction::Action));
-            List.of("thank", "thanks").forEach(s -> put(s, ThanksMessageAction::Action));
-            List.of("who", "whome").forEach(s -> put(s, RandomHumanNameAction::Action));
-            List.of("how").forEach(s -> put(s, RandomWordsAction::Action));
-            List.of("when").forEach(s -> put(s, RandomDateTimeAction::Action));
-            List.of("google", "search", "duckduck", "duckduckgo").forEach(s -> put(s, DuckDuckGoSearchAction::Action));
-            List.of("cancel", "farm").forEach(s -> put(s, RandomEmojisAction::Action));
-            List.of("wiki").forEach(s -> put(s, WikiAction::Action));
-            List.of("show", "post").forEach(s -> put(s, ImagesAction::Action));
-            List.of("will", "am", "can", "are", "would", "do", "did").forEach(s -> put(s, RandomEightBallAction::Action));
-            List.of("many", "quantity", "number", "much").forEach(s -> put(s, RandomNumberAction::Action));
-            List.of("where", "location").forEach(s -> put(s, RandomCountryAction::Action));
-            List.of("color", "colour", "shade").forEach(s -> put(s, RandomColorAction::Action));
-            List.of("music", "listen").forEach(s -> put(s, RandomMusicAction::Action));
-            List.of("meal", "dinner", "lunch", "breakfast", "food", "eat").forEach(s -> put(s, RandomFoodAction::Action));
+            List.of("hello", "hi").forEach(s -> put(s, HelloMessageAction::action));
+            List.of("help").forEach(s -> put(s, HelpMessageAction::action));
+            List.of("thank", "thanks").forEach(s -> put(s, ThanksMessageAction::action));
+            List.of("who", "whome").forEach(s -> put(s, RandomHumanNameAction::action));
+            List.of("how").forEach(s -> put(s, RandomWordsAction::action));
+            List.of("when").forEach(s -> put(s, RandomDateTimeAction::action));
+            List.of("google", "search", "duckduck", "duckduckgo").forEach(s -> put(s, DuckDuckGoSearchAction::action));
+            List.of("cancel", "farm").forEach(s -> put(s, RandomEmojisAction::action));
+            List.of("wiki").forEach(s -> put(s, WikiAction::action));
+            List.of("show", "post").forEach(s -> put(s, ImagesAction::action));
+            List.of("will", "am", "can", "are", "would", "do", "did").forEach(s -> put(s, RandomEightBallAction::action));
+            List.of("many", "quantity", "number", "much").forEach(s -> put(s, RandomNumberAction::action));
+            List.of("where", "location").forEach(s -> put(s, RandomCountryAction::action));
+            List.of("color", "colour", "shade").forEach(s -> put(s, RandomColorAction::action));
+            List.of("music", "listen").forEach(s -> put(s, RandomMusicAction::action));
+            List.of("meal", "dinner", "lunch", "breakfast", "food", "eat").forEach(s -> put(s, RandomFoodAction::action));
+            List.of("test1").forEach(s -> put(s, TestAction::action));
         }
     };
 
-    public static final Function<ArrayList<String>, MessageContent> DEFAULT_ACTION = RandomWordsAction::Action;
+    public static final Function<ArrayList<String>, MessageContent> DEFAULT_ACTION = RandomWordsAction::action;
     public static final ImageType DEFAULT_IMAGE_TYPE = ImageType.STOCK;
 }

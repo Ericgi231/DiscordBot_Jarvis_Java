@@ -5,6 +5,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import static me.ericgi231.constant.ActionConstant.DEFAULT_IMAGE_TYPE;
+
 public class ImageQueryDataBuilder {
     private int quantity;
     private ArrayList<String> terms;
@@ -13,7 +15,7 @@ public class ImageQueryDataBuilder {
     public ImageQueryDataBuilder() {
         quantity = 1;
         terms = new ArrayList<>();
-        imageType = ActionConstant.ImageType.STOCK;
+        imageType = DEFAULT_IMAGE_TYPE;
     }
 
     @NotNull

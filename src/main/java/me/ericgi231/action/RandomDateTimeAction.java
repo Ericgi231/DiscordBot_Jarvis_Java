@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class RandomDateTimeAction {
-    public static MessageContent Action(final ArrayList<String> ignoredWords) {
+    public static MessageContent action(final ArrayList<String> ignoredWords) {
         final var now = new Date().getTime();
         final var today = new Date(now);
         final var twoYearLater = new Date(now + TimeUnit.DAYS.toMillis(730));

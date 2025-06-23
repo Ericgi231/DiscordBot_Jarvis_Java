@@ -15,7 +15,7 @@ public class RandomWordsAction {
     private final static int MAX_WORDS = 5;
     private final static String DELIM = " ";
 
-    public static MessageContent Action(final ArrayList<String> ignoredWords) {
+    public static MessageContent action(final ArrayList<String> ignoredWords) {
         final var rand = ThreadLocalRandom.current();
         return new MessageContentBuilder()
                 .setText(GetRandomWordsFromResourceFile(PATH_TO_DICT, rand.nextInt(MIN_WORDS, MAX_WORDS), DELIM) + DELIM + GetRandomEmojis())

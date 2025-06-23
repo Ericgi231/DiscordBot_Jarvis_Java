@@ -10,7 +10,7 @@ import static me.ericgi231.helper.ActionHelper.GetRandomEmojis;
 public class RandomEmojisAction {
     private final static int emojiCount = 21;
 
-    public static MessageContent Action(final ArrayList<String> ignoredWords) {
+    public static MessageContent action(final ArrayList<String> ignoredWords) {
         return new MessageContentBuilder().setText(GetRandomEmojis().repeat(emojiCount)).build();
     }
 }
