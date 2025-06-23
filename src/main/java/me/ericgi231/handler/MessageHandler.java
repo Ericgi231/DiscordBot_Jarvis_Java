@@ -1,6 +1,5 @@
 package me.ericgi231.handler;
 
-import me.ericgi231.action.RandomWordsAction;
 import me.ericgi231.dataType.MessageContent;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
@@ -10,7 +9,8 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static me.ericgi231.constant.ActionStringMethodConstantMap.ACTION_STRING_METHOD_MAP;
+import static me.ericgi231.constant.ActionConstant.STRING_ACTION_FUNCTION_MAP;
+import static me.ericgi231.constant.ActionConstant.DEFAULT_ACTION;
 
 public class MessageHandler {
     private static final Logger logger = LoggerFactory.getLogger(MessageHandler.class);
@@ -29,16 +29,16 @@ public class MessageHandler {
         DetermineAction();
     }
 
-    //TODO Handle the word "what" better
+    //TODO Handle "what ___" better
     private void DetermineAction() {
         if (words.isEmpty()) {
-            PostReply(RandomWordsAction.Action(words));
+            PostReply(DEFAULT_ACTION.apply(this.words));
             return;
         }
 
         var word = words.removeFirst();
 
-        var method = ACTION_STRING_METHOD_MAP.get(word);
+        var method = STRING_ACTION_FUNCTION_MAP.get(word);
         if (method == null) {
             DetermineAction();
         } else {

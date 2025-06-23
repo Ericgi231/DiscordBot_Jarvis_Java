@@ -5,13 +5,10 @@ import net.fellbaum.jemoji.EmojiManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.net.URI.create;
@@ -28,40 +25,77 @@ public final class ActionHelper {
 
     private ActionHelper() {}
 
+    /**
+     * Retrieve a file from the collection specified in system environment variable.
+     * @param fileName name of file to get from collection
+     * @return file from local collection folder
+     */
     public static FileUpload GetLocalFile(String fileName) {
         return FileUpload.fromData(new File(PATH_TO_COLLECTION + fileName), fileName);
     }
 
-    public static String GetRandomWordsFromFile(String filePath) throws RuntimeException {
-        return GetRandomWordsFromFile(filePath, 1, "");
+    /**
+     * Read a random word from a resource file
+     * @param filePath name of file to get from resources
+     * @return single word
+     */
+    public static String GetRandomWordsFromResourceFile(String filePath) {
+        return GetRandomWordsFromResourceFile(filePath, 1, "");
     }
 
-    public static String GetRandomWordsFromFile(String filePath, int numberOfWords, String del) throws RuntimeException {
-        //TODO Fix temp throwing of runtime exception
-        try {
-            final var dict = Files.readAllLines(Paths.get(filePath));
+    /**
+     * Read a random selection of words from a resource file appended with deliminators
+     * @param filePath name of file to get from resources
+     * @param numberOfWords number of words to read
+     * @param del deliminator to append after each word
+     * @return deliminated words
+     */
+    public static String GetRandomWordsFromResourceFile(String filePath, int numberOfWords, String del) {
+        InputStream inStream = ActionHelper.class.getClassLoader().getResourceAsStream(filePath);
+        if (inStream != null) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
+            var text = reader.lines().toList();
             final var rand = ThreadLocalRandom.current();
             var builder = new StringBuilder();
             for (int i = 0; i < numberOfWords; i++) {
-                builder.append(dict.get(rand.nextInt(dict.size()))).append(del);
+                builder.append(text.get(rand.nextInt(text.size()))).append(del);
             }
             builder.delete(builder.length() - del.length(), builder.length());
             return builder.toString();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
+        //TODO Handle if input stream fails
+        return "";
     }
 
+    /**
+     * Get a random emoji
+     * @return single emoji
+     */
     public static String GetRandomEmojis() {
-        return GetRandomEmojis(1);
+        return GetRandomEmojis(1, "");
     }
 
-    public static String GetRandomEmojis(int quantity) {
+    /**
+     * Get a random selection of emojis appended with a deliminator
+     * @param quantity number of emoji
+     * @return deliminated emojis
+     */
+    public static String GetRandomEmojis(int quantity, String del) {
         final var emojis = EmojiManager.getAllEmojis().stream().toList();
         final var rand = ThreadLocalRandom.current();
-        final var emoji = emojis.get(rand.nextInt(emojis.size()));
-        return emoji.getEmoji().repeat(quantity);
+        final var builder = new StringBuilder();
+        for (int i = 0; i < quantity; i++) {
+            builder.append(emojis.get(rand.nextInt(emojis.size())).getEmoji()).append(del);
+        }
+        builder.delete(builder.length() - del.length(), builder.length());
+        return builder.toString();
     }
+
+    /**
+     * Send an HTTP Request and return response
+     * @param request_uri URI of request
+     * @return HTTP response
+     */
     public static HttpResponse<String> SendHTTPRequest(String request_uri) {
         try {
             HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build();

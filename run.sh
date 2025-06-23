@@ -1,1 +1,1 @@
-java -jar jarvis-jar-with-dependencies.jar $JARVIS_TOKEN
+screen -dmS jarvis_session java -jar jarvis-jar-with-dependencies.jar $JARVIS_TOKEN

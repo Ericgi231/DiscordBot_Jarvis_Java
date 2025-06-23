@@ -17,6 +17,12 @@ public class MessageContentBuilder {
     }
 
     @NotNull
+    public MessageContentBuilder addEmbed(@NotNull MessageEmbed embed) {
+        this.embeds.add(embed);
+        return this;
+    }
+
+    @NotNull
     public MessageContentBuilder setEmbeds(@NotNull MessageEmbed embed) {
         this.embeds = List.of(embed);
         return this;
@@ -25,6 +31,12 @@ public class MessageContentBuilder {
     @NotNull
     public MessageContentBuilder setEmbeds(@NotNull List<MessageEmbed> embeds) {
         this.embeds = embeds;
+        return this;
+    }
+
+    @NotNull
+    public MessageContentBuilder addFile(@NotNull FileUpload file) {
+        this.files.add(file);
         return this;
     }
 

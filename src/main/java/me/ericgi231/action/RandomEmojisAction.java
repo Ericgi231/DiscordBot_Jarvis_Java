@@ -11,6 +11,6 @@ public class RandomEmojisAction {
     private final static int emojiCount = 21;
 
     public static MessageContent Action(final ArrayList<String> ignoredWords) {
-        return new MessageContentBuilder().setText(GetRandomEmojis(emojiCount)).build();
+        return new MessageContentBuilder().setText(GetRandomEmojis().repeat(emojiCount)).build();
     }
 }
